@@ -11,8 +11,20 @@ gem 'sqlite3', '~> 1.4'
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
+
+gem 'ajax-datatables-rails'
+
+gem "bootstrap", "~> 5.0"
+
+gem 'bootstrap_form'
+
+
+gem 'kaminari'
+
+
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
+gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

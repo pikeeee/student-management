@@ -3,7 +3,10 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = Student.all
+    respond_to do |format|
+      format.html
+      format.json { render json: StudentDatatable.new(params) }
+    end
   end
 
   # GET /students/1 or /students/1.json
@@ -17,6 +20,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    @student = Student.find(params[:id])
   end
 
   # POST /students or /students.json

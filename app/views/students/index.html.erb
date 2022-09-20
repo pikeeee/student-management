@@ -2,10 +2,13 @@
 
 
 <h1>Students</h1>
+<div class="modal fade" id="edit_students"></div>
 
-<table id = "pike_table" class = 'dataTable'>
+<table id="pike_table", data-source="<%= students_path(format: :json) %>">
+
   <thead>
     <tr>
+      <th>ID</th>
       <th>Name</th>
       <th>Birthday</th>
       <th>Class name</th>
@@ -16,21 +19,11 @@
     </tr>
   </thead>
 </table>
+<button id="greet-user-button">Hey!</button>
 
 <br>
   <script>
-  document.addEventListener('turbolinks:load', function() {
-    $('#pike_table').dataTable({
-      "processing": true,
-      "serverSide": true,
-      "ajax": "/students.json",
-      "columns": [
-        {data: "name"},
-        {data: "birthday"},
-        {data: "class_name"}
-      ]
-    });
-  });
+  
 </script>
 <%= javascript_pack_tag 'students' %>
 <%= link_to 'New Student', new_student_path %>
