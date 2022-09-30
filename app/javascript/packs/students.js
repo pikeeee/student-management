@@ -2,6 +2,7 @@ import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs4';
 import swal from 'sweetalert';
+import jquery from 'jquery';
 
 jQuery(document).ready(function() {
   $('#pike_table').dataTable({
@@ -14,29 +15,30 @@ jQuery(document).ready(function() {
     "columns": [
       {"data": "id"},
       {"data": "name"},
+      {data: "id" , render : function ( data, type, row, meta ) {
+        var image = $(".student_image").map(function() {
+          return $(this).text();
+        }).get();
+        $("#pike_test").val(image);
+        return '<div>' +
+        $(image) +
+        '</div>'
+      }},
       {"data": "birthday"},
       {"data": "class_name"},
       {data: "id" , render : function ( data, type, row, meta ) {
-            return type === 'display'  ?
-              '<button id="greet-user-button">Show</button>' :
-              data;
-      }},
-      {data: "id" , render : function ( data, type, row, meta ) {
-        return '<a href="/students/'+row.id+'/edit" class="buttons edit-button">Edit</a>'
+        return '<div>' + 
+        '<a href="/students/'+row.id+'/edit" class="buttons edit-button"><button>Edit</button></a>' + 
+        '<button id="delete-button" data-student-id="'+row.id+'">Delete</button>' + 
+        '</div>'
 
-      }},
-      {data: "id" , render : function ( data, type, row, meta ) {
-            return type === 'display'  ?
-              '<button id="delete-button" data-student-id="'+row.id+'">Delete</button>' :
-              data;
-      }},
+      }}
     ]
   // pagingType is optional, if you want full pagination controls.
   // Check dataTables documentation to learn more about
   // available options.
 });
   jQuery(document).on('click','#delete-button', function () {
-    debugger
       var id = $(this).data('student-id');
       swal({
         title: "Are you sure?",
@@ -79,9 +81,24 @@ jQuery(document).ready(function() {
         }
       });
     });
-  jQuery(document).on('click','#edit-button', function () {
-    debugger
-      var id = $(this).data('student-id');
-      r
-    });
+  jQuery(document).on('click','#create-student', function(){
+    $.ajax({
+      method: 'POST',
+      url: '/students/new',
+      data: $('#create_for').serialize(),
+      headers:{
+        "X-CSRF-Token": $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(returnData){
+
+      }
+    })
+  });
+  var tbl = $('#pike_table');
+  var test = $('#user_current').val();
+  // Work with column 2
+  if(test == false){
+  tbl.DataTable().column(4).visible(false);
+  $.tbl.ajax.reload(null, false)
+  }
 });

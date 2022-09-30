@@ -3,6 +3,7 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
+    @student = Student.new
     respond_to do |format|
       format.html
       format.json { render json: StudentDatatable.new(params) }
@@ -26,7 +27,7 @@ class StudentsController < ApplicationController
   # POST /students or /students.json
   def create
     @student = Student.new(student_params)
-
+    @student.image.attach(params[:student][:image])
     respond_to do |format|
       if @student.save
         format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
@@ -58,6 +59,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to students_url, notice: "Student was successfully destroyed." }
       format.json { head :no_content }
+      format.js
     end
   end
 
@@ -69,6 +71,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:name, :birthday, :class_name)
+      params.require(:student).permit(:name, :birthday, :class_name, :image)
     end
 end

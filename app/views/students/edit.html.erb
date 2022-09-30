@@ -1,10 +1,11 @@
 <h1>Editing Student</h1>
 
-<%= bootstrap_form_with model: @student, url: students_path(@student), method: :patch, local: true do |f| %>
+<%= bootstrap_form_with model: @student, url: students_path(@student), method: :patch, remote: true do |f| %>
     <%= f.label :Edit %>
     <%= f.text_field :name %>
     <%= f.date_field :birthday %>
     <%= f.text_field :class_name %>
+    <%= f.file_field :image, multiple: true %><br>
     <%= f.submit %>
 <% end %>
 
